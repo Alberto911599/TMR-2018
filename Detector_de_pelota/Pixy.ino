@@ -8,21 +8,12 @@ void scanPixy(){
   
   viendo_Pelota = contador_pelota < 500;
   viendo_porteria = contador_porteria < 300;
-  viendo_izquierda = contador_izquierda < 500;
-  viendo_derecha = contador_derecha < 500;
-//  
+  
   if(contador_pelota < 550)
       contador_pelota++; 
       
   if(contador_porteria < 550)
     contador_porteria++;
-    
-  if(contador_izquierda < 550)
-    contador_izquierda++; 
-    
-  if(contador_derecha < 550)
-    contador_derecha++;
-
  
   
   if(blocks){
@@ -51,27 +42,7 @@ void scanPixy(){
             contador_porteria = 0;
             x_porteria = pixy.blocks[h].x; //Regresa la coordenada x del centro del rectangulo de la porteria amarilla(de 0 a 319)
             y_porteria = pixy.blocks[h].y; //Regresa la coordenada x del centro del rectangulo de la porteria amarilla (de 0 a 199)
-            alineado = x_porteria >= 50 && x_porteria <= 270;
-          }
-          
-      }
-      
-      //Izquierda
-      else if(signature == signature_izquierda){
-
-          if(area_temp > 25){
-            contador_izquierda = 0;
-            izquierda_height = pixy.blocks[h].height;
-          }
-
-      }
-      
-      //Derecha
-      else if(signature == signature_derecha){
-        
-       if(area_temp > 25){
-          contador_derecha = 0;
-          derecha_height = pixy.blocks[h].height;
+            alineado = x_porteria >= 70 && x_porteria <= 250;
         }
       }
     }  

@@ -39,10 +39,11 @@ void bouncing(){
     
   }
   
-  while(millis() < temp + 300){
+  acelera();
+  while(millis() < temp + 100){
           
     avanzar(direccion);
-    delay(5);
+    delay(50*multiplicador);
     colores();
    
     if(!(on_color[0] == 0 && on_color[1] == 0 && on_color[2] == 0)) {
@@ -51,6 +52,7 @@ void bouncing(){
   
   }
   
+  afloja();
   if((direccion == 4 || direccion == 6 || direccion == 3) && !viendo_Pelota)
     x_pelota = 399;
   if((direccion == 7 || direccion == 5 || direccion == 2) && !viendo_Pelota)

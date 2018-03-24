@@ -68,106 +68,33 @@ void find_objective(int i){
 }
 
 
-//void simple_bouncing(){
-//  int tiempo = 400;
-//  int meta = 0;
-//  scanPixy();
-//  giro(15,345);
-//  
-//  //Toque en meta
-//  if(on_color[0] == 1 && on_color[1] == 1){
-//    
-//    tiempo = 800;     
-//    
-//    if(on_color[2] == 1){
-//    
-//      meta = 1;
-//      direccion = res_ant == 2 ? 4 : 7;
-//      
-//      while(viendo_Pelota){
-//          scanPixy();
-//          avanzar(-1); 
-//      }   
-//    
-//  }
-//    
-//    else{
-//      
-//      meta = -1;
-//      direccion = res_ant == 2 ? 6 : 5;          
-//      
-//    }
-//      
-//      
-//  }
-//  
-//  else if(on_color[0] == 1){
-//      //Rotacion incorrecta
-//      if(rotacion < 350 && rotacion > 180)
-//        direccion = 0;
-//      //Rotacion correcta
-//      else
-//        direccion = 3;
-//    
-//    
-//    res_ant = 2;
-//    
-//  }
-//    //direccion = rotacion >= 5 || rotacion <= 355 ? 3 : 6; 
-//    
-//  else{
-//      //Rotacion incorrecta
-//      if(rotacion > 10 && rotacion < 180)
-//        direccion = 0;
-//      //Rotacion correcta
-//      else 
-//        direccion = 2;
-//    
-//    res_ant = 3;
-//    
-//  }
-//    
-//    if((direccion == 4 || direccion == 6 || direccion == 3) && !viendo_Pelota)
-//      x_pelota = 399;
-//    if((direccion == 7 || direccion == 5 || direccion == 2) && !viendo_Pelota)
-//      x_pelota = 0;
-//    
-//    if(meta == 1){
-//      avanzar(0);
-//      delay(700);
-//    }
-//    if(meta == -1){
-//      avanzar(1);
-//      delay(700);
-//    }
-//    
-//    avanzar(direccion);
-//    delay(tiempo); 
-//    
-//}
-
 int analisis_de_datos(){
   
 //  Escanea donde estas parado
- colores(); 
- 
- avanzar(10); 
+ colores();  
   
 //  Area libre, no se hatocado ninguna linea de salida
   if((on_color[0] == 0 && on_color[1] == 0  && on_color[2] == 0)){
     
-    if(contador_alineacion < 550){
-      contador_alineacion++;
-    }
+//    if(contador_alineacion < 100){
+//      contador_alineacion++;
+//    }
     
-    alineacion_bno(40, 320);
+    
+    alineacion_bno();
+    
+    scanPixy();
 
-// Alineate con la porteria  
-    if(viendo_porteria && !alineado && contador_alineacion >= 500){
+ //Alineate con la porteria  
+    if(viendo_porteria && !alineado){
       alineacion_porteria();
     }
     
-    scanPixy();
+    if(y_pelota > 100 && viendo_Pelota)
+      avanzar(10);
+      
+    else
+      avanzar(11);
     
 //  //Si no esta viendo la pelota, busca la pelota de acuerdo a la ultima vez que se vio
     if(!viendo_Pelota){
@@ -187,8 +114,8 @@ int analisis_de_datos(){
       //Si no tengo la pelota, pero la estoy viendo
       //else{
 //      Ve a atrapar la pelota  
-        catch_fire_direct(x_pelota, y_pelota);
-      //}
+        catch_fire(x_pelota);
+      
     }
   }
 
@@ -196,6 +123,8 @@ int analisis_de_datos(){
   else{
       bouncing();
    }
+   multiplicador = millis()/3000;
+   multiplicador = multiplicador > 4 ? 4: multiplicador;
   return direccion;
 }
 

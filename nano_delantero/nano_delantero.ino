@@ -1,3 +1,4 @@
+  
   int colores[8];
   int out[11] = {2,3,4,5,6,7,8,9,10,11,12}; 
   int led = 13;
@@ -41,9 +42,8 @@
     }
   }
   
-  const int extra_high = 800;
-  const int high = 600;
-  const int down = 450;
+  const int um = 450;
+  const int um_esp = 300;
   const int tm = 20;
   
   void setup(){
@@ -62,7 +62,7 @@
     lecturas_promedio();
     
     //Izquierdo
-    if(colores[0] > extra_high || colores[1] > extra_high){
+    if(colores[0] > um_esp || colores[1] > um){
       digitalWrite(out[0], HIGH);
       digitalWrite(out[1], LOW);
       apagapin();
@@ -70,7 +70,7 @@
       delay(tm);      
     }
     //Derecho
-    else if(colores[4] > extra_high || colores[5] > extra_high){
+    else if(colores[4] > um_esp || colores[5] > um_esp){
       digitalWrite(out[0], LOW);
       digitalWrite(out[1], HIGH);
       apagapin();
@@ -78,7 +78,7 @@
       delay(tm);
     }
     //Meta Arriba
-    else if(colores[2] > down || colores[3] > down){
+    else if(colores[2] > um || colores[3] > um){
       digitalWrite(out[0], HIGH);
       digitalWrite(out[1], HIGH);
       prendepin();
@@ -87,7 +87,7 @@
     }
     
     //Meta Abajo
-    else if(colores[6] > high || colores[7] > high){
+    else if(colores[6] > um_esp || colores[7] > um_esp){
       digitalWrite(out[0], HIGH);
       digitalWrite(out[1], HIGH);
       apagapin();

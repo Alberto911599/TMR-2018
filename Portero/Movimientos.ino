@@ -106,12 +106,13 @@ void avanzar(int evento) {
 //Funcion utilizada para ir hacia algun objetivo ya identificado
 //en este caso catch la pelota y fire la porteria
 void recorrido(int i){
-  if(i > 100 && i < 220){
+  
+  if(i > 120 && i < 200){
 //    Serial.println("Adelante");
     direccion = -1;
   }
   //La pelota esta a la izquierda
-  else if(i <= 100){
+  else if(i <= 120){
 //    Serial.println("Izquierda");
     direccion = 2;
   }
@@ -119,5 +120,17 @@ void recorrido(int i){
   else{
 //    Serial.println("Derecha");
     direccion = 3;
+  }
+}
+
+void aprieta(){
+  for(int i = 0; i < 5; i++){
+    analogWrite(enable[i], 200);
+  }
+}
+
+void afloja(){
+  for(int i = 0; i < 5; i++){
+    analogWrite(enable[i], 180);
   }
 }

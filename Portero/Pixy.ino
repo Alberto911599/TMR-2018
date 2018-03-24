@@ -6,9 +6,9 @@ void scanPixy(){
   
   blocks = pixy.getBlocks();
  
-  viendo_Pelota = contador_pelota < 500;
+  viendo_Pelota = contador_pelota < 750;
   
-  if(contador_pelota < 550)
+  if(contador_pelota < 800)
     contador_pelota++;
   
   if(blocks){

@@ -17,7 +17,7 @@ int motores[10] = {42, 40, 36, 38, 9, 10, 11, 12, 26, 28};
 int enable[5] = {3, 4, 8, 13, 2};
 
 //PORTERIA SWITCH
-int porteria = 53;
+int offset = 53;
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////
 
@@ -29,27 +29,25 @@ Adafruit_BNO055 bno = Adafruit_BNO055(55);        //Declaracion del BNO
                                                    
 bool viendo_Pelota;                                                                    
 bool viendo_porteria;
-bool viendo_izquierda;
-bool viendo_derecha;
-bool alineado;
-bool equipo; 
-int signature_porteria;
-int signature_izquierda;
-int signature_derecha;
+bool alineado; 
+int bajo = 0;
+int alto = 0;
 int on_color[3] = {7,5,6};                        //000 = libre; 010 = derecha; 100 = izquierda; 111 = meta rival; 110 = propia meta
 int x_pelota, y_pelota;                           
 int y_porteria;                                   
 int x_porteria;                                   
-int izquierda_height;
-int derecha_height;
-int rotacion;
+int rotacion = 0;
+int huawei = 0;
 int contador_pelota = 0;
 int contador_porteria = 0;
-int contador_izquierda = 0;
-int contador_derecha = 0;
 int contador_alineacion = 0;
 uint16_t blocks;                                  
-unsigned int direccion;                           
+unsigned int direccion;  
+int sw;
+int multiplicador = 0;
+bool equipo = true;
+int signature_porteria;
+
 
 //////////////////////////////////////////  ////////////////////////////////////////////////////////////////  
 
@@ -57,10 +55,17 @@ unsigned int direccion;
 
 void setup() {
   
-  //Inicializacion de pixy y BNO
+  //Serial.begin(9600);
+  
+  //Inicializacion de la pixy  
   pixy.init();
+  
+  //Inicializacion BNO
   bno.begin();
   bno.setExtCrystalUse(true);
+  
+//  //Switch de porteria
+//  pinMode(offset, INPUT);
   
   //Declarar los pines de los motores como salidas
   for(int i = 0; i < 10; i++){
@@ -70,46 +75,20 @@ void setup() {
   //Declarar los enables como salidas
   for(int i = 0; i < 5; i++){
     pinMode(enable[i], OUTPUT);
-    analogWrite(enable[i], 160);
+    analogWrite(enable[i], 210);
   }
-//    analogWrite(enable[1], 170);
-  
+
   //Declarar los pines de las fotorressistencias como entradas
   for(int i = 0; i < 3; i++){
     pinMode(on_color[i], INPUT);
   }
   
-  //Switch de porteria
-  pinMode(porteria, INPUT);
-  //equipo = true;
+  signature_porteria = equipo ? 3 : 5;
   
-  //Indicamos que colores estaran a la izquierda y a la derecha
-  signature_porteria = equipo ? 3 : 6;
-  signature_izquierda = equipo ? 5 : 4;
-  signature_derecha = equipo ? 7 : 1; 
-  
-  for(int i =0; i < 100; i++)
-    equipo = digitalRead(porteria);
 }
 
 void loop() {
+   
   avanzar(analisis_de_datos());
-//  {42, 40, 36, 38, 9, 10, 11, 12, 26, 28};
-//  scanPixy();
-//  if(viendo_Pelota)
-//    digitalWrite(42, HIGH);
-//  else
-//    digitalWrite(42, LOW);
-//  if(viendo_porteria)
-//    digitalWrite(11, HIGH);
-//  else
-//    digitalWrite(11, LOW);
-//  if(viendo_izquierda)
-//    digitalWrite(36, HIGH);
-//  else
-//    digitalWrite(36, LOW);
-//  if(viendo_derecha)
-//    digitalWrite(9, HIGH);
-//  else
-//    digitalWrite(9, LOW);
+
 }

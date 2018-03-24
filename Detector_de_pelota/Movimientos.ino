@@ -104,16 +104,29 @@ void avanzar(int evento) {
      digitalWrite(motores[8], LOW);
      digitalWrite(motores[9], HIGH);
     break;
+    case 11:
+     digitalWrite(motores[8], LOW);
+     digitalWrite(motores[9], LOW);
+    break;
   }
 }
+
+void acelera(){
+  for(int i = 0; i < 5; i++){
+    analogWrite(enable[i], 230);
+  }
+}
+
+void afloja(){
+  for(int i = 0; i < 5; i++){
+    analogWrite(enable[i], 210);
+  }
+}
+
 
 void alineacion_porteria(){
   int temp = x_porteria > 250 ? 9 : 8;
-  while(viendo_porteria && !alineado){
-    avanzar(temp);
-    scanPixy();
-  }
-  avanzar(-1);
+  avanzar(temp);
+  delayMicroseconds(800);
 }
-
 
